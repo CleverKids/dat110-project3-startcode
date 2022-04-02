@@ -56,11 +56,18 @@ public class ChordLookup {
 	private NodeInterface findHighestPredecessor(BigInteger key) throws RemoteException {
 		
 		// collect the entries in the finger table for this node
-		
+		List<NodeInterface> fingerTable = node.getFingerTable();
 		// starting from the last entry, iterate over the finger table
 		
 		// for each finger, obtain a stub from the registry
-		
+		for(int i = fingerTable.size()-1; i>=0; i--) {
+			NodeInterface n = fingerTable.get(i);
+			NodeInterface stub = Util.getProcessStub(n.getNodeName(), n.getPort());
+			boolean condition = Util.computeLogic(stub.getNodeID(), node.getNodeID().add(new BigInteger("1")), key.subtract(new BigInteger("1")));
+			if(condition) {
+				return stub;
+			}
+		}
 		// check that finger is a member of the set {nodeID+1,...,ID-1} i.e. (nodeID+1 <= finger <= key-1) using the ComputeLogic
 		
 		// if logic returns true, then return the finger (means finger is the closest to key)
