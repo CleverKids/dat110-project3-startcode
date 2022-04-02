@@ -50,7 +50,7 @@ public class Util {
 			oppe = upper.add(size);
 			
 			if((id.compareTo(new BigInteger("0"))==1 || id.compareTo(new BigInteger("0"))==0) && 
-					((id.compareTo(upper)==1 || id.compareTo(upper)==0))) {
+					((id.compareTo(upper)==-1 || id.compareTo(upper)==0))) {
 					id = id.add(size);
 			}
 		}
