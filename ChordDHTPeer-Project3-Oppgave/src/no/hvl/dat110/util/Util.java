@@ -55,7 +55,7 @@ public class Util {
 			}
 		}
 		upper = oppe;
-		cond = (id.compareTo(lower)==1 || id.compareTo(lower)==0) && (id.compareTo(upper)==1 || id.compareTo(upper)==0);
+		cond = (id.compareTo(lower)==1 || id.compareTo(lower)==0) && (id.compareTo(upper)==-1 || id.compareTo(upper)==0);
 		
 		return cond;
 	}
