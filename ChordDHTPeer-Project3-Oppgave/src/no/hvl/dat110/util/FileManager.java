@@ -149,7 +149,11 @@ public class FileManager {
 	public NodeInterface findPrimaryOfItem() {
 
 		// Task: Given all the active peers of a file (activeNodesforFile()), find which is holding the primary copy
-		
+		for(Message msg: activeNodesforFile) {
+			if(msg.isPrimaryServer()) {
+				return Util.getProcessStub(msg.getNodeIP(), msg.getPort());
+			}
+		}
 		// iterate over the activeNodesforFile
 		
 		// for each active peer (saved as Message)
