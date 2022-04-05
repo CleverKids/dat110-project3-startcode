@@ -78,13 +78,25 @@ public class FileManager {
     	int counter = 0;
     	
     	// Task1: Given a filename, make replicas and distribute them to all active peers such that: pred < replica <= peer
-    	
+    
     	// Task2: assign a replica as the primary for this file. Hint, see the slide (project 3) on Canvas
-    	
+    	Random rep = new Random();
+    	int repa = rep.nextInt(Util.numReplicas-1);
     	// create replicas of the filename
-    	
+    	createReplicaFiles();
 		// iterate over the replicas
-    	
+    	for (int i = 0; i < replicafiles.length; i++) {
+    		BigInteger replica = replicafiles[i];
+    		
+    		NodeInterface successor = chordnode.findSuccessor(replica);
+    		successor.addKey(replica);
+    		if (counter == repa) {
+    			successor.saveFileContent(filename, replica, bytesOfFile, true);
+    		} else {
+    			successor.saveFileContent(filename, replica, bytesOfFile, false);
+    		}
+    		counter++;
+    	}
     	// for each replica, find its successor by performing findSuccessor(replica)
     	
     	// call the addKey on the successor and add the replica
@@ -110,9 +122,15 @@ public class FileManager {
 		// Task: Given a filename, find all the peers that hold a copy of this file
 		
 		// generate the N replicas from the filename by calling createReplicaFiles()
-		
+		createReplicaFiles();
 		// it means, iterate over the replicas of the file
-		
+		for(int i = 0; i < replicafiles.length; i++) {
+			BigInteger replica = replicafiles[i];
+			
+			NodeInterface successor = chordnode.findSuccessor(replica);
+			Message message = successor.getFilesMetadata(replica);
+			succinfo.add(message);
+		}
 		// for each replica, do findSuccessor(replica) that returns successor s.
 		
 		// get the metadata (Message) of the replica from the successor, s (i.e. active peer) of the file
