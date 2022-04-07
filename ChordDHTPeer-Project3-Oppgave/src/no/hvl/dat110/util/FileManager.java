@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import no.hvl.dat110.middleware.ChordLookup;
 import no.hvl.dat110.middleware.Message;
 import no.hvl.dat110.rpc.interfaces.NodeInterface;
 import no.hvl.dat110.util.Hash;
