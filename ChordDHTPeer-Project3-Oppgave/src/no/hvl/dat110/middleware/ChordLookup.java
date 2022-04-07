@@ -5,6 +5,7 @@ package no.hvl.dat110.middleware;
 
 import java.math.BigInteger;
 import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,8 +40,8 @@ public class ChordLookup {
 		if(condition) {
 			return successorStub;
 		} else {
-			NodeInterface highest = findHighestPredecessor(key);
-			return highest.findSuccessor(key);
+			NodeInterface highest_pred = findHighestPredecessor(key);
+			return highest_pred.findSuccessor(key);
 		}
 		// if logic returns false; call findHighestPredecessor(key)
 		
