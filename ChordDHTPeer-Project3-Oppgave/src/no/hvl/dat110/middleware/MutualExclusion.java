@@ -211,7 +211,7 @@ public class MutualExclusion {
 	
 	private boolean areAllMessagesReturned(int numvoters) throws RemoteException {
 		// check if the size of the queueack is same as the numvoters
-		if(queueack.size()==numvoters) {
+		if(queueack.size() == numvoters) {
 			queueack.clear();
 			return true;
 		}
