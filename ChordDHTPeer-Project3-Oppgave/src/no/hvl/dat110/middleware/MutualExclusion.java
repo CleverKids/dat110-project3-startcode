@@ -157,6 +157,7 @@ public class MutualExclusion {
 				// own clock for the multicast message
 				if(lowClock == spClock) {
 					if(message.getNodeID().compareTo(node.getNodeID())<0) {
+						message.setAcknowledged(true);
 						NodeInterface stub = Util.getProcessStub(procName, port);
 						stub.onMutexAcknowledgementReceived(message);
 					} else {
@@ -212,12 +213,13 @@ public class MutualExclusion {
 		// check if the size of the queueack is same as the numvoters
 		if(queueack.size()==numvoters) {
 			queueack.clear();
+			return true;
 		}
 		// clear the queueack
 		
 		// return true if yes and false if no
 
-		return true;
+		return false;
 	}
 	
 	private List<Message> removeDuplicatePeersBeforeVoting() {
